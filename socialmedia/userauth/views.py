@@ -8,7 +8,14 @@ from .models import *
 
 # Create your views here.
 def home(request):
-    return HttpResponse("Pouuu")
+    user_obj = request.user
+    username = user_obj.username
+    try:
+        profile = Profile.objects.get(user=user_obj).profileimg
+    except:
+        profile = None
+    print(profile)
+    return render(request,'main.html',{"username":username,"profile":profile})
 
 def signup(request):
     if request.method == 'POST':
@@ -43,3 +50,14 @@ def login_user(request):
         message = "Invalid credentials"
         return render(request,'login.html',{"message":message})
     return render(request,'login.html')
+
+
+def upload(request):
+    if request.method == 'POST':
+        username = request.user.username
+        post = request.Files.get("image")
+        caption = request.POST.get("caption")
+        new_post = Posts.objects.create(user=username,image=post,caption=caption)
+        return redirect('/')
+    return render(request,'upload.html')
+
