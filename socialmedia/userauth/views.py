@@ -15,6 +15,7 @@ def home(request):
     except:
         profile = None
     print(profile)
+    # posts = Posts.objects.all().order_by()
     return render(request,'main.html',{"username":username,"profile":profile})
 
 def signup(request):
@@ -55,7 +56,7 @@ def login_user(request):
 def upload(request):
     if request.method == 'POST':
         username = request.user.username
-        post = request.Files.get("image")
+        post = request.FILES.get("image")
         caption = request.POST.get("caption")
         new_post = Posts.objects.create(user=username,image=post,caption=caption)
         return redirect('/')
