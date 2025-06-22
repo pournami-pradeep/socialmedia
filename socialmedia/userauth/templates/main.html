@@ -53,5 +53,44 @@
   
   </nav>
   {% include "modal.html" %}
+   <!-- home posts code -->
+   <div>{% for pos in posts %}
+    <div class="container" id="{{pos.id}}">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="post-card"style="border: 1px solid black; margin: 10px;">
+                    <img src="{{pos.image.url}}" alt="Post Image" class="post-image"
+                        style="height: 584px; width:468px; margin: 25px;">
+                    <div class="post-content"style="margin-left: 19px;">
+                        <h5><a href="/profile/{{pos.user}}" style="text-decoration: none;">@{{pos.user}}</a></h5>
+                        <p>{{pos.caption}}</p>
+                        <p class="text-muted">{{pos.created_at}}</p>
+                        <hr>
+                        <div class="d-flex justify-content-between" style="margin-bottom: 8px; margin-right:10px;">
 
+                            <a href="/like-post/{{pos.id}}" class="btn btn-outline-primary">Like</a>
+
+                            {% if pos.likes == 0 %}
+                            <p>0 Likes</p>
+                            {% elif pos.likes == 1 %}
+                            <p>Liked by {{pos.likes}} person</p>
+                            {% else %}
+                            <p>Liked by {{pos.likes}} people</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+</main>
+
+
+</div>
+</div>
   {% endblock %} 
